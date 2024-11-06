@@ -45,7 +45,7 @@ Creation Date: "{created}"
 
             self.output_json.append({
                     'input': '', 
-                    'instruction': self.ins,
+                    'instruction': '',
                     'output': inp + content
                 })
 
