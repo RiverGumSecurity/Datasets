@@ -44,9 +44,9 @@ Creation Date: "{created}"
                 continue
 
             self.output_json.append({
-                    'input': inp, 
+                    'input': '', 
                     'instruction': self.ins,
-                    'output': content
+                    'output': inp + content
                 })
 
         print(json.dumps(self.output_json, indent=4))
