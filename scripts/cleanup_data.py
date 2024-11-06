@@ -55,10 +55,13 @@ Creation Date: "{created}"
 
 if __name__ == '__main__':
     instructions = '''\
-1. Summarize the blog post.
-2. Explain how it relates to recent trends in information security.
-3. Provide related examples where possible.
-4. Explain the technical concept in as much detail as possible.
+You are an information security expert and have deep technical knowledge
+in the information security domain.  Using the input provided, pick from one of the following options
+and provide both a summary and detailed response.
+1. Write a new blog post using the provided input as a title.
+2. Summarize or retrieve an existing blog post in its entirety.
+3. Explain technical concepts in summary, and in detail if asked.
+4. Provide references for further reading if possible.
 '''
     parser = argparse.ArgumentParser()
     parser.add_argument('filename', help='json file of input data')
