@@ -45,7 +45,7 @@ Creation Date: "{created}"
 
             self.output_json.append({
                     'input': '', 
-                    'instruction': '',
+                    'instruction': self.ins,
                     'output': inp + content
                 })
 
@@ -55,9 +55,9 @@ Creation Date: "{created}"
 
 if __name__ == '__main__':
     instructions = '''\
+Below is an instruction that describes a task, paired with an input that provides further context.
 You are an information security expert and have deep technical knowledge
-in the information security domain.  Using the input provided, pick from one of the following options
-and provide both a summary and detailed response.
+in the information security domain.  Using the input provided, pick from one of the following options.
 1. Write a new blog post using the provided input as a title.
 2. Summarize or retrieve an existing blog post in its entirety.
 3. Explain technical concepts in summary, and in detail if asked.
