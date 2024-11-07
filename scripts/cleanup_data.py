@@ -29,7 +29,10 @@ class Convert():
             output = re.sub(r' +', ' ', BeautifulSoup(b['content'], "html.parser").get_text())
             if created is None:
                 created = ''
-            inp = f"""\
+            metadata = f"""
+
+The following information describes this blog.
+
 Title: "{title}"
 Taxonomies: "{taxonomies}"
 Creation Date: "{created}"
@@ -42,21 +45,20 @@ Creation Date: "{created}"
                     'podcast' in taxonomies.lower():
                 continue
 
-            parsed = self.parse_content(inp, output)
+            parsed = self.parse_content(output)
             for item in parsed:
                 self.output_json.append({
                     'input': '', 
-                    'instruction': self.ins,
+                    'instruction': self.ins + metadata,
                     'output': item
                 })
         print(json.dumps(self.output_json, indent=4))
 
-    def parse_content(self, prefix, content):
+    def parse_content(self, content):
         res = []
         content = re.sub(r'(?i)https?://[a-z0-9\-\.]+?', '', content)
         tokens = re.findall(r"([\-\w'!?\.]+)\b", content)
 
-        res.append(prefix)
         if len(tokens) > self.maxlen:
             for i in range(len(tokens) // self.maxlen):
                 s = i * self.maxlen
@@ -69,13 +71,18 @@ Creation Date: "{created}"
 
 if __name__ == '__main__':
     instructions = '''\
-Below is an instruction that describes a task, paired with an input that provides further context.
 You are an information security expert and have deep technical knowledge
 in the information security domain.  Using the input provided, pick from one of the following options.
+
 1. Write a new blog post using the provided input as a title.
 2. Summarize or retrieve an existing blog post in its entirety.
 3. Explain technical concepts in summary, and in detail if asked.
 4. Provide references for further reading if possible.
+
+The information below describes a blog article written by a recognized information
+security expert like yourself. You should use this information as direct reference
+material to answer the questions posed.
+
 '''
     parser = argparse.ArgumentParser()
     parser.add_argument('filename', help='json file of input data')
