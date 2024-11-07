@@ -56,13 +56,14 @@ Creation Date: "{created}"
         content = re.sub(r'(?i)https?://[a-z0-9\-\.]+?', '', content)
         tokens = re.findall(r"([\-\w'!?\.]+)\b", content)
 
+        res.append(prefix)
         if len(tokens) > self.maxlen:
             for i in range(len(tokens) // self.maxlen):
                 s = i * self.maxlen
                 e = i * self.maxlen + self.maxlen
-                res.append(prefix + ' '.join(tokens[s:e]))
+                res.append(' '.join(tokens[s:e]))
         else:
-            res.append(prefix + ' '.join(tokens))
+            res.append(' '.join(tokens))
         return res
 
 
