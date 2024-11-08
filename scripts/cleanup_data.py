@@ -16,8 +16,10 @@ class Convert():
         self.ins = ins
 
     def run(self):
+        newch = {}
         with open(self.filename, 'rt') as fh:
             content = json.load(fh)
+
         for b in content:
             if not b['title'] or not b['taxonomies']:
                 continue
@@ -26,7 +28,7 @@ class Convert():
             taxonomies = html.unescape(
                 re.sub(r'[^\x20-\x5b\x5d-\x7a]+', '', ', '.join(b['taxonomies'])).strip())
             created = b['date_created']
-            output = re.sub(r' +', ' ', BeautifulSoup(b['content'], "html.parser").get_text())
+
             if created is None:
                 created = ''
             metadata = f"""
@@ -52,11 +54,18 @@ Creation Date: "{created}"
                     'instruction': self.ins + metadata,
                     'output': item
                 })
+
+        #for k in newch:
+        #    try:
+        #        print(f'{k} --> {newch[k]}')
+        #    except:
+        #        pass
         print(json.dumps(self.output_json, indent=4))
 
     def parse_content(self, content):
         res = []
         content = re.sub(r'(?i)https?://[a-z0-9\-\.]+?', '', content)
+        content = re.sub(r'\u2019', "'", content)
         tokens = re.findall(r"([\-\w'!?\.]+)\b", content)
 
         if len(tokens) > self.maxlen:
