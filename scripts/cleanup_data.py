@@ -32,12 +32,9 @@ class Convert():
             if created is None:
                 created = ''
             metadata = f"""
-
-The following information describes this blog.
-
-Title: "{title}"
-Taxonomies: "{taxonomies}"
-Creation Date: "{created}"
+1. Summarize the blog post titled "{title}", from the categories "{taxonomies}"
+2. Answer questions about the blog post titled "{title}", from the categories "{taxonomies}"
+3. Provide detailed technical explanations from the blog post titled "{title}", from the categories "{taxonomies}"
 """
 
             output = re.sub(r' +', ' ', BeautifulSoup(b['content'], "html.parser").get_text())
@@ -82,22 +79,13 @@ if __name__ == '__main__':
     instructions = '''\
 You are an information security expert and have deep technical knowledge
 in the information security domain. You have the extensive knowledge of
-an experienced senior information security consultant. You thoroughly understand a
-diverse amount of information security concepts including encryption, hashing,
+an experienced senior information security consultant.
+You thoroughly understand a diverse amount of information security concepts including encryption, hashing,
 risk analysis, penetration testing, red teaming, purple teaming,
 web application testing, source code analysis, internal and external network testing.
 
 Take a step back and think step-by-step about how to achieve the best possible results.
-Be very precise, and avoid the temptation to repeat yourself.
 Provide a response to the input provided using one of the options below.
-
-1. Respond to a technical inquiry giving both a summary, and detailed examples.
-2. Summarize or retrieve an existing blog post.
-3. Explain technical concepts whenever possible.
-4. Provide references for further reading if they exist.
-
-Utilize the blog article meta data listed below as part of your response if applicable.
-
 
 '''
     parser = argparse.ArgumentParser()
