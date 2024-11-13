@@ -32,9 +32,13 @@ class Convert():
             if created is None:
                 created = ''
             metadata = f"""
-1. Summarize the blog post titled "{title}", from the categories "{taxonomies}"
-2. Answer questions about the blog post titled "{title}", from the categories "{taxonomies}"
-3. Provide detailed technical explanations from the blog post titled "{title}", from the categories "{taxonomies}"
+<title>{title}</title>
+<taxonomies>{taxonomies}</taxonomies>
+<creation_date>{created}</creation_date>
+
+1. Summarize the blog post.
+2. Answer questions about the blog post.
+3. Provide detailed technical explanations from the blog post.
 """
 
             output = re.sub(r' +', ' ', BeautifulSoup(b['content'], "html.parser").get_text())
