@@ -25,10 +25,8 @@ class GPT_DataPrep():
 Based on the following extract, generate five instruction-answer pairs.
 Each instruction must ask to write about a specific topic contained in
 the context.
-Each answer must provide a relevant paragraph based on the information
+Each answer can provide up to three relevant paragraphs based on the information
 found in the context.
-Up to three paragraphs may be provided if the concept needs more
-detailed explanation.
 Only use concepts from the context to generate the instructions.
 Instructions must never explicitly mention a context,
 a system, a course, or an extract.
@@ -58,6 +56,7 @@ Provide your response in JSON format with the following structure:
                     resp = self.query_model(messages)
                     self.process_responses(i, resp)
                     messages = []
+                    self.write_outfile()
                 prompt = self.context.format(line[self.data_field])
                 messages.append({
                     'role': 'user',
